@@ -20,6 +20,7 @@ interface Props {
   dataOnauth?: (user: TelegramUser) => void
   buttonSize?: 'large' | 'medium' | 'small'
   wrapperProps?: React.HTMLProps<HTMLDivElement>
+  lang?: string
 }
 
 declare global {
@@ -39,6 +40,7 @@ const TelegramLoginButton: React.FC<Props> = ({
   buttonSize = 'large',
   dataOnauth,
   cornerRadius,
+  lang,
   requestAccess = true
 }) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -65,6 +67,7 @@ const TelegramLoginButton: React.FC<Props> = ({
     script.src = 'https://telegram.org/js/telegram-widget.js?22'
     script.setAttribute('data-telegram-login', botName)
     script.setAttribute('data-size', buttonSize)
+    script.setAttribute('data-lang', lang)
 
     if (cornerRadius !== undefined) {
       script.setAttribute('data-radius', cornerRadius.toString())
@@ -93,6 +96,7 @@ const TelegramLoginButton: React.FC<Props> = ({
     requestAccess,
     usePic,
     ref,
+    lang,
     dataAuthUrl
   ])
 
@@ -108,6 +112,7 @@ TelegramLoginButton.propTypes = {
   wrapperProps: PropTypes.object,
   dataOnauth: PropTypes.func,
   dataAuthUrl: PropTypes.string,
+  lang: PropTypes.string,
   buttonSize: PropTypes.oneOf(['large', 'medium', 'small'])
 }
 
